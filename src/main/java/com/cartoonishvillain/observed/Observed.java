@@ -25,7 +25,7 @@ public class Observed implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger("observed");
 
 	public static final Item OBSERVER_EYE = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(2).saturationMod(1f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*90, 0), 1).meat().build()));
-
+	public static final ObserveEffect OBSERVE_EFFECT = new ObserveEffect();
 	public static final EntityType<ObserverEntity> OBSERVERENTITY = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation("observed", "observer"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, ObserverEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
 
 	@Override
@@ -35,6 +35,7 @@ public class Observed implements ModInitializer {
 		// Proceed with mild caution.
 		Registry.register(Registry.ITEM, new ResourceLocation("observed", "observereye"), OBSERVER_EYE);
 		FabricDefaultAttributeRegistry.register(OBSERVERENTITY, ObserverEntity.customAttributes());
+		Registry.register(Registry.MOB_EFFECT, new ResourceLocation("observed", "observedeffect"), OBSERVE_EFFECT);
 
 
 		LOGGER.info("Hello Fabric world!");

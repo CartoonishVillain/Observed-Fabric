@@ -73,7 +73,7 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
 
     private void affectPlayer(Player player){
         if(!player.level.isClientSide){
-            player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 10, 1));
+            player.addEffect(new MobEffectInstance(Observed.OBSERVE_EFFECT, 20, 1));
         }
     }
 
