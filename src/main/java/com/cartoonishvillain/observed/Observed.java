@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityDimensions;
@@ -28,6 +30,13 @@ public class Observed implements ModInitializer {
 	public static final ObserveEffect OBSERVE_EFFECT = new ObserveEffect();
 	public static final EntityType<ObserverEntity> OBSERVERENTITY = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation("observed", "observer"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, ObserverEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
 
+
+	public static final ResourceLocation attack_sound_id = new ResourceLocation("observed:attack_sounds");
+	public static final ResourceLocation death_sound_id = new ResourceLocation("observed:hurt_sounds");
+	public static final ResourceLocation hurt_sound_id = new ResourceLocation("observed:death_sounds");
+	public static SoundEvent ATTACKSOUNDEVENT = new SoundEvent(attack_sound_id);
+	public static SoundEvent DEATHSOUNDEVENT = new SoundEvent(death_sound_id);
+	public static SoundEvent HURTSOUNDEVENT = new SoundEvent(hurt_sound_id);
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -37,6 +46,9 @@ public class Observed implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(OBSERVERENTITY, ObserverEntity.customAttributes());
 		Registry.register(Registry.MOB_EFFECT, new ResourceLocation("observed", "observedeffect"), OBSERVE_EFFECT);
 
+		Registry.register(Registry.SOUND_EVENT, Observed.attack_sound_id, ATTACKSOUNDEVENT);
+		Registry.register(Registry.SOUND_EVENT, Observed.death_sound_id, DEATHSOUNDEVENT);
+		Registry.register(Registry.SOUND_EVENT, Observed.hurt_sound_id, HURTSOUNDEVENT);
 
 		LOGGER.info("Hello Fabric world!");
 	}

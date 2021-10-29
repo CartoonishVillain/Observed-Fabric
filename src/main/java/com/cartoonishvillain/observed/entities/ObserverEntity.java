@@ -6,6 +6,8 @@ import com.cartoonishvillain.observed.entities.goals.NearestObservableGoal;
 import com.cartoonishvillain.observed.entities.goals.ObservationGoal;
 import com.cartoonishvillain.observed.entities.goals.ObserverMovementGoal;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -56,7 +58,7 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null;
+        return entity != null && PanicTicks <= 0;
     }
 
     public static AttributeSupplier.Builder customAttributes(){
@@ -75,6 +77,20 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
         if(!player.level.isClientSide){
             player.addEffect(new MobEffectInstance(Observed.OBSERVE_EFFECT, 20, 1));
         }
+
+        if(!player.level.isClientSide()){
+            player.level.playSound(null, getOnPos(), Observed.ATTACKSOUNDEVENT, SoundSource.HOSTILE, 1, 1);
+        }
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return Observed.HURTSOUNDEVENT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return Observed.DEATHSOUNDEVENT;
     }
 
     @Override
