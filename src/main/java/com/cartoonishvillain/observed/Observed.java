@@ -1,7 +1,10 @@
 package com.cartoonishvillain.observed;
 
+import com.cartoonishvillain.observed.config.ObservedConfig;
 import com.cartoonishvillain.observed.entities.ObserverEntity;
 import com.cartoonishvillain.observed.entities.SpawnSystem;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -41,11 +44,17 @@ public class Observed implements ModInitializer {
 	public static SoundEvent ATTACKSOUNDEVENT = new SoundEvent(attack_sound_id);
 	public static SoundEvent DEATHSOUNDEVENT = new SoundEvent(death_sound_id);
 	public static SoundEvent HURTSOUNDEVENT = new SoundEvent(hurt_sound_id);
+
+	public static ObservedConfig config;
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+		AutoConfig.register(ObservedConfig.class, GsonConfigSerializer::new);
+		config = AutoConfig.getConfigHolder(ObservedConfig.class).getConfig();
+
 		Registry.register(Registry.ITEM, new ResourceLocation("observed", "observereye"), OBSERVER_EYE);
 		FabricDefaultAttributeRegistry.register(OBSERVERENTITY, ObserverEntity.customAttributes());
 		Registry.register(Registry.MOB_EFFECT, new ResourceLocation("observed", "observedeffect"), OBSERVE_EFFECT);

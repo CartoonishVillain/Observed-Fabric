@@ -33,8 +33,7 @@ public class ObserverMovementGoal<T extends ObserverEntity> extends Goal {
     public void tick() {
         super.tick();
         if (!this.observer.isPathFinding()) {
-            //TODO: Observed.config.OBSERVERRANGE.get()*1.5 in place of 24.
-            Vec3 vector3d = DefaultRandomPos.getPosTowards(this.observer, (int) (24), 4, Vec3.atBottomCenterOf(observer.getLastLoc()), (double)((float)Math.PI / 10F));
+            Vec3 vector3d = DefaultRandomPos.getPosTowards(this.observer, (int) Observed.config.observedOptions.observerFollowDistance, 4, Vec3.atBottomCenterOf(observer.getLastLoc()), (double)((float)Math.PI / 10F));
             if (vector3d != null) {
                 this.observer.getNavigation().moveTo(vector3d.x, vector3d.y, vector3d.z, 1D);
             }

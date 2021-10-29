@@ -50,8 +50,7 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
         super.registerGoals();
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 10f, 1.0D, 1.2D, this::avoid ));
-        //TODO: Config fix Observed.config.OBSERVERRANGE.get().floatValue()
-        this.goalSelector.addGoal(2, new ObservationGoal(this, 1.25D, 20, 24));
+        this.goalSelector.addGoal(2, new ObservationGoal(this, 1.25D, 20, Observed.config.observedOptions.observerRange));
         this.goalSelector.addGoal(3, new ObserverMovementGoal<>(this));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1));
@@ -86,14 +85,12 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
             float distance = this.distanceTo(player);
             float effect;
 
-//            TODO: float range = Observed.config.OBSERVERRANGE.get();
-            float range = 24;
+            float range = Observed.config.observedOptions.observerRange;
             float distanceDivided = distance/range;
 
-            //TODO: CLOSE, NEAR, FAR CONFIG
-            if(distanceDivided <= 0.3){effect = 1;}
-            else if(distanceDivided <= 0.6){effect = 0.75f;}
-            else {effect = 0.375f;}
+            if(distanceDivided <= 0.3){effect = (float) Observed.config.observedOptions.closeObserverGainRate;}
+            else if(distanceDivided <= 0.6){effect = (float) Observed.config.observedOptions.nearButNotCloseObserverGainRate;}
+            else {effect = (float) Observed.config.observedOptions.farObserverGainRate;}
 
             if(ComponentTicker.ValidPlayer(player)){
                 OBSERVELEVEL.get(player).changeObserveLevel(effect);

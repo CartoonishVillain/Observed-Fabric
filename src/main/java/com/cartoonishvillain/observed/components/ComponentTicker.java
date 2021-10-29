@@ -22,9 +22,9 @@ public class ComponentTicker {
         float observe = OBSERVELEVEL.get(player).getObserveLevel();
         if(!player.level.isClientSide && player.tickCount % 20 == 0){
             float levelRemoved;
-            if(observe >= 60){levelRemoved = -0.35f;}
-            else if (observe >= 20){levelRemoved = -0.2f;}
-            else {levelRemoved = -0.1f;}
+            if(observe >= 60){levelRemoved = (float) -Observed.config.observedOptions.highValueDrainRate;}
+            else if (observe >= 20){levelRemoved = (float) -Observed.config.observedOptions.mediumValueDrainRate;}
+            else {levelRemoved = (float) -Observed.config.observedOptions.lowValueDrainRate;}
 
             if(ValidPlayer(player)){
                 OBSERVELEVEL.get(player).changeObserveLevel(levelRemoved);
