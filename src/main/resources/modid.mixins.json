@@ -5,10 +5,8 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "ObserverAccessor",
-    "PlayerTickMixin"
-  ],
-  "client": [
-    "ExampleMixin"
+    "PlayerTickMixin",
+    "SpawnPlacementMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,11 +1,14 @@
 package com.cartoonishvillain.observed;
 
 import com.cartoonishvillain.observed.entities.ObserverEntity;
+import com.cartoonishvillain.observed.entities.SpawnSystem;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -50,6 +53,11 @@ public class Observed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, Observed.attack_sound_id, ATTACKSOUNDEVENT);
 		Registry.register(Registry.SOUND_EVENT, Observed.death_sound_id, DEATHSOUNDEVENT);
 		Registry.register(Registry.SOUND_EVENT, Observed.hurt_sound_id, HURTSOUNDEVENT);
+
+		SpawnSystem.registerSpawns();
+		RegistryEntryAddedCallback.event(BuiltinRegistries.BIOME).register((i, id, biome) -> {
+			SpawnSystem.registerSpawns();
+		});
 
 	}
 }

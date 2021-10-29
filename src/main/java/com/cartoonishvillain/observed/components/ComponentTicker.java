@@ -2,10 +2,17 @@ package com.cartoonishvillain.observed.components;
 
 import com.cartoonishvillain.observed.ObserveEffect;
 import com.cartoonishvillain.observed.Observed;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.LevelAccessor;
+
+import java.util.Random;
 
 import static com.cartoonishvillain.observed.components.ComponentStarter.OBSERVELEVEL;
 
@@ -57,5 +64,9 @@ public class ComponentTicker {
 
     public static boolean ValidPlayer(Player player){
         return !player.isCreative() && !player.isSpectator();
+    }
+
+    public static boolean spawnRules(EntityType<? extends Mob> p_21401_, LevelAccessor p_21402_, MobSpawnType p_21403_, BlockPos p_21404_, Random p_21405_){
+        return p_21402_.canSeeSky(p_21404_) && Mob.checkMobSpawnRules(p_21401_, p_21402_, p_21403_, p_21404_, p_21405_);
     }
 }
