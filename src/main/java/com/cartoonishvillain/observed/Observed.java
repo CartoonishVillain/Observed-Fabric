@@ -1,11 +1,13 @@
 package com.cartoonishvillain.observed;
 
+import com.cartoonishvillain.observed.commands.SetObservedLevel;
 import com.cartoonishvillain.observed.config.ObservedConfig;
 import com.cartoonishvillain.observed.entities.ObserverEntity;
 import com.cartoonishvillain.observed.entities.SpawnSystem;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -54,6 +56,10 @@ public class Observed implements ModInitializer {
 		// Proceed with mild caution.
 		AutoConfig.register(ObservedConfig.class, GsonConfigSerializer::new);
 		config = AutoConfig.getConfigHolder(ObservedConfig.class).getConfig();
+
+		CommandRegistrationCallback.EVENT.register(((dispatcher, dedicated) -> {
+			SetObservedLevel.register(dispatcher);
+		}));
 
 		Registry.register(Registry.ITEM, new ResourceLocation("observed", "observereye"), OBSERVER_EYE);
 		FabricDefaultAttributeRegistry.register(OBSERVERENTITY, ObserverEntity.customAttributes());
