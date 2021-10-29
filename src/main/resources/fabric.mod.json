@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "observed",
+  "version": "${version}",
+
+  "name": "Observed",
+  "description": "Lurking in the background...",
+  "authors": [
+    "Cartoonish Villain"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.cartoonishvillain.observed.Observed"
+    ],
+    "client": [
+      "com.cartoonishvillain.observed.client.ClientObserved"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

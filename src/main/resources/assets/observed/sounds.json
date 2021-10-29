@@ -1,0 +1,5 @@
+{
+  "attack_sounds": {"sounds": ["observed:static"]},
+  "hurt_sounds": {"sounds": ["observed:observerhurt"]},
+  "death_sounds": {"sounds": ["observed:observerdeath"]}
+}

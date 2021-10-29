@@ -1,0 +1,6 @@
+{
+  "effect.observed.observedeffect": "Observed",
+  "entity.observed.observer": "Observer",
+  "item.observed.observereye": "Eye of the Observer",
+  "command.observed.success": "Set the target's observed level to %1$s percent"
+}
