@@ -2,6 +2,7 @@ package com.cartoonishvillain.observed.entities;
 
 
 import com.cartoonishvillain.observed.Observed;
+import com.cartoonishvillain.observed.components.ComponentTicker;
 import com.cartoonishvillain.observed.entities.goals.NearestObservableGoal;
 import com.cartoonishvillain.observed.entities.goals.ObservationGoal;
 import com.cartoonishvillain.observed.entities.goals.ObserverMovementGoal;
@@ -27,6 +28,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+
+import static com.cartoonishvillain.observed.components.ComponentStarter.OBSERVELEVEL;
 
 public class ObserverEntity extends Monster implements RangedAttackMob {
 
@@ -75,11 +80,30 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
 
     private void affectPlayer(Player player){
         if(!player.level.isClientSide){
-            player.addEffect(new MobEffectInstance(Observed.OBSERVE_EFFECT, 20, 1));
-        }
+            ArrayList<Player> players = (ArrayList<Player>) player.level.getEntitiesOfClass(Player.class, player.getBoundingBox().inflate(5));
+            players.remove(player);
 
-        if(!player.level.isClientSide()){
+            float distance = this.distanceTo(player);
+            float effect;
+
+//            TODO: float range = Observed.config.OBSERVERRANGE.get();
+            float range = 24;
+            float distanceDivided = distance/range;
+
+            //TODO: CLOSE, NEAR, FAR CONFIG
+            if(distanceDivided <= 0.3){effect = 1;}
+            else if(distanceDivided <= 0.6){effect = 0.75f;}
+            else {effect = 0.375f;}
+
+            if(ComponentTicker.ValidPlayer(player)){
+                OBSERVELEVEL.get(player).changeObserveLevel(effect);
+            }
+
+            for (Player sideEffected : players){
+                OBSERVELEVEL.get(sideEffected).changeObserveLevel(effect/2f);
+            }
             player.level.playSound(null, getOnPos(), Observed.ATTACKSOUNDEVENT, SoundSource.HOSTILE, 1, 1);
+
         }
     }
 

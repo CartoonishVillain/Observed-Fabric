@@ -3,6 +3,12 @@
   "id": "observed",
   "version": "${version}",
 
+  "custom": {
+    "cardinal-components": [
+      "observed:observelevel"
+    ]
+  },
+
   "name": "Observed",
   "description": "Lurking in the background...",
   "authors": [
@@ -23,6 +29,9 @@
     ],
     "client": [
       "com.cartoonishvillain.observed.client.ClientObserved"
+    ],
+    "cardinal-components-entity": [
+      "com.cartoonishvillain.observed.components.ComponentStarter"
     ]
   },
   "mixins": [

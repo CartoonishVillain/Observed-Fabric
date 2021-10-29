@@ -4,7 +4,8 @@
   "package": "com.cartoonishvillain.observed.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "ObserverAccessor"
+    "ObserverAccessor",
+    "PlayerTickMixin"
   ],
   "client": [
     "ExampleMixin"
