@@ -26,6 +26,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,9 +36,13 @@ public class Observed implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LogManager.getLogger("observed");
 
-	public static final Item OBSERVER_EYE = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(2).saturationMod(1f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*90, 0), 1).meat().build()));
-	public static final ObserveEffect OBSERVE_EFFECT = new ObserveEffect();
 	public static final EntityType<ObserverEntity> OBSERVERENTITY = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation("observed", "observer"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, ObserverEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
+
+
+	public static final Item OBSERVER_EYE = new Item(new FabricItemSettings().group(CreativeModeTab.TAB_FOOD).food(new FoodProperties.Builder().nutrition(2).saturationMod(1f).effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*90, 0), 1).meat().build()));
+	public static final Item OBSERVER_SPAWN_EGG = new SpawnEggItem(OBSERVERENTITY, 2097152, 10131200, new Item.Properties().tab(CreativeModeTab.TAB_MISC));
+
+	public static final ObserveEffect OBSERVE_EFFECT = new ObserveEffect();
 
 
 	public static final ResourceLocation attack_sound_id = new ResourceLocation("observed:attack_sounds");
@@ -62,6 +67,8 @@ public class Observed implements ModInitializer {
 		}));
 
 		Registry.register(Registry.ITEM, new ResourceLocation("observed", "observereye"), OBSERVER_EYE);
+		Registry.register(Registry.ITEM, new ResourceLocation("observed", "observer_spawn_egg"), OBSERVER_SPAWN_EGG);
+
 		FabricDefaultAttributeRegistry.register(OBSERVERENTITY, ObserverEntity.customAttributes());
 		Registry.register(Registry.MOB_EFFECT, new ResourceLocation("observed", "observedeffect"), OBSERVE_EFFECT);
 
