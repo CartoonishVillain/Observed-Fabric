@@ -1,12 +1,17 @@
 package com.cartoonishvillain.observed.entities;
 
 import com.cartoonishvillain.observed.Observed;
+import com.cartoonishvillain.observed.components.ComponentTicker;
 import com.google.common.collect.ImmutableMap;
+import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +21,11 @@ public class SpawnSystem {
 
 
     public static void initSpawns(){
+        if(!Observed.config.observedOptions.observersSpawnInCaves)
+            SpawnRestrictionAccessor.callRegister(Observed.OBSERVERENTITY, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ComponentTicker::spawnRules);
+        else
+            SpawnRestrictionAccessor.callRegister(Observed.OBSERVERENTITY, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+      
         //Loop through every biome
         for(Biome biome : BuiltinRegistries.BIOME){
             // Make the new spawner entry like I do in forge
