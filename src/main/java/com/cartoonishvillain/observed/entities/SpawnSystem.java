@@ -1,12 +1,17 @@
 package com.cartoonishvillain.observed.entities;
 
 import com.cartoonishvillain.observed.Observed;
+import com.cartoonishvillain.observed.components.ComponentTicker;
 import com.google.common.collect.ImmutableMap;
+import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.util.random.WeightedRandomList;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
