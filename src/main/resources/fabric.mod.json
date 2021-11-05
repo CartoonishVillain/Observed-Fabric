@@ -9,6 +9,8 @@
     ]
   },
 
+  "accessWidener" : "observed.accesswidener",
+
   "name": "Observed",
   "description": "Lurking in the background...",
   "authors": [
