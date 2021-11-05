@@ -1,28 +1,30 @@
 package com.cartoonishvillain.observed;
 
 import com.cartoonishvillain.observed.commands.SetObservedLevel;
+import com.cartoonishvillain.observed.components.ComponentTicker;
 import com.cartoonishvillain.observed.config.ObservedConfig;
 import com.cartoonishvillain.observed.entities.ObserverEntity;
 import com.cartoonishvillain.observed.entities.SpawnSystem;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.levelgen.Heightmap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,6 +74,6 @@ public class Observed implements ModInitializer {
 		Registry.register(Registry.SOUND_EVENT, Observed.death_sound_id, DEATHSOUNDEVENT);
 		Registry.register(Registry.SOUND_EVENT, Observed.hurt_sound_id, HURTSOUNDEVENT);
 
-		SpawnSystem.registerSpawns();
+		SpawnSystem.initSpawns();
 	}
 }
