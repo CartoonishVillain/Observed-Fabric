@@ -1,6 +1,7 @@
 package com.cartoonishvillain.observed.entities;
 
 import com.cartoonishvillain.observed.Observed;
+import com.cartoonishvillain.observed.Register;
 import com.cartoonishvillain.observed.components.ComponentTicker;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
@@ -22,14 +23,14 @@ public class SpawnSystem {
 
     public static void initSpawns(){
         if(!Observed.config.observedOptions.observersSpawnInCaves)
-            SpawnRestrictionAccessor.callRegister(Observed.OBSERVERENTITY, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ComponentTicker::spawnRules);
+            SpawnRestrictionAccessor.callRegister(Register.OBSERVERENTITY, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ComponentTicker::spawnRules);
         else
-            SpawnRestrictionAccessor.callRegister(Observed.OBSERVERENTITY, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+            SpawnRestrictionAccessor.callRegister(Register.OBSERVERENTITY, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
       
         //Loop through every biome
         for(Biome biome : BuiltinRegistries.BIOME){
             // Make the new spawner entry like I do in forge
-            MobSpawnSettings.SpawnerData spawner = new MobSpawnSettings.SpawnerData(Observed.OBSERVERENTITY, Observed.config.observedOptions.observerSpawnWeight, 1, 1);
+            MobSpawnSettings.SpawnerData spawner = new MobSpawnSettings.SpawnerData(Register.OBSERVERENTITY, Observed.config.observedOptions.observerSpawnWeight, 1, 1);
             //Select biome types.
             if(biome.getBiomeCategory() != Biome.BiomeCategory.NETHER && biome.getBiomeCategory() != Biome.BiomeCategory.THEEND && biome.getBiomeCategory() != Biome.BiomeCategory.OCEAN){
                 //grab the list of spawn entries.

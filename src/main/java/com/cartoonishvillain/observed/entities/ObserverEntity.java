@@ -2,6 +2,7 @@ package com.cartoonishvillain.observed.entities;
 
 
 import com.cartoonishvillain.observed.Observed;
+import com.cartoonishvillain.observed.Register;
 import com.cartoonishvillain.observed.components.ComponentTicker;
 import com.cartoonishvillain.observed.entities.goals.NearestObservableGoal;
 import com.cartoonishvillain.observed.entities.goals.ObservationGoal;
@@ -99,19 +100,19 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
             for (Player sideEffected : players){
                 OBSERVELEVEL.get(sideEffected).changeObserveLevel(effect/2f);
             }
-            player.level.playSound(null, getOnPos(), Observed.ATTACKSOUNDEVENT, SoundSource.HOSTILE, 1, 1);
+            player.level.playSound(null, getOnPos(), Register.ATTACKSOUNDEVENT, SoundSource.HOSTILE, 1, 1);
 
         }
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return Observed.HURTSOUNDEVENT;
+        return Register.HURTSOUNDEVENT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return Observed.DEATHSOUNDEVENT;
+        return Register.DEATHSOUNDEVENT;
     }
 
     @Override
