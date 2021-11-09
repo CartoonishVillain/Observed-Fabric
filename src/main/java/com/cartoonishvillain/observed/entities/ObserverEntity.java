@@ -1,6 +1,7 @@
 package com.cartoonishvillain.observed.entities;
 
 
+import com.cartoonishvillain.immortuoscalyx.component.InfectionComponent;
 import com.cartoonishvillain.observed.Observed;
 import com.cartoonishvillain.observed.Register;
 import com.cartoonishvillain.observed.components.ComponentTicker;
@@ -31,7 +32,9 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
 import static com.cartoonishvillain.observed.components.ComponentStarter.OBSERVELEVEL;
 
 public class ObserverEntity extends Monster implements RangedAttackMob {
@@ -93,12 +96,33 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
             else if(distanceDivided <= 0.6){effect = (float) Observed.config.observedOptions.nearButNotCloseObserverGainRate;}
             else {effect = (float) Observed.config.observedOptions.farObserverGainRate;}
 
-            if(ComponentTicker.ValidPlayer(player)){
+            boolean calyxCheck = Observed.isCalyxLoaded;
+
+            AtomicBoolean protectedByCalyx = new AtomicBoolean(false);
+            if(calyxCheck){
+                InfectionComponent h = INFECTION.get(player);
+                    if(h.getInfectionProgress() > 25){
+                        protectedByCalyx.set(true);
+                    }
+            }
+
+            if(ComponentTicker.ValidPlayer(player) && ! protectedByCalyx.get()){
                 OBSERVELEVEL.get(player).changeObserveLevel(effect);
             }
 
+            protectedByCalyx.set(false);
             for (Player sideEffected : players){
-                OBSERVELEVEL.get(sideEffected).changeObserveLevel(effect/2f);
+                if(calyxCheck){
+                    InfectionComponent h = INFECTION.get(sideEffected);
+                    if(h.getInfectionProgress() > 25){
+                        protectedByCalyx.set(true);
+                    }
+                }
+
+                if(ComponentTicker.ValidPlayer(sideEffected) && !protectedByCalyx.get()) {
+                    OBSERVELEVEL.get(sideEffected).changeObserveLevel(effect / 2f);
+                }
+                protectedByCalyx.set(false);
             }
             player.level.playSound(null, getOnPos(), Register.ATTACKSOUNDEVENT, SoundSource.HOSTILE, 1, 1);
 

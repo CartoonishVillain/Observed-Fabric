@@ -14,6 +14,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -33,6 +34,7 @@ public class Observed implements ModInitializer {
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LogManager.getLogger("observed");
+	public static boolean isCalyxLoaded;
 
 
 
@@ -49,6 +51,8 @@ public class Observed implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(((dispatcher, dedicated) -> {
 			SetObservedLevel.register(dispatcher);
 		}));
+
+		isCalyxLoaded = FabricLoader.getInstance().isModLoaded("immortuoscalyx");
 
 		Register.init();
 
