@@ -20,11 +20,10 @@ public class ObservationGoal extends RangedAttackGoal {
         if(((ObserverAccessor) this).getmob().tickCount % 20 == 0) {
             float targetDistance = ((ObserverAccessor) this).gettarget().distanceTo(((ObserverAccessor) this).getmob());
             //move closer to keep observing if target is almost out of range
-            //TODO: Reimplement configs
-            if(((ObserverAccessor) this).getattackRadius() - targetDistance < 16 && !((ObserverAccessor) this).getmob().getNavigation().isInProgress())
+            if(((ObserverAccessor) this).getattackRadius() - targetDistance < Observed.config.observedOptions.observerFollowDistance && !((ObserverAccessor) this).getmob().getNavigation().isInProgress())
             {((ObserverAccessor) this).getmob().getNavigation().moveTo(((ObserverAccessor) this).gettarget(), 1);}
             //otherwise if we are close enough and are still moving, stop moving
-            else if(((ObserverAccessor) this).getattackRadius() - targetDistance > 16 && ((ObserverAccessor) this).getmob().getNavigation().isInProgress()){
+            else if(((ObserverAccessor) this).getattackRadius() - targetDistance > Observed.config.observedOptions.observerFollowDistance && ((ObserverAccessor) this).getmob().getNavigation().isInProgress()){
                 ((ObserverAccessor) this).getmob().getNavigation().stop();
             }
         }
