@@ -14,10 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.AreaEffectCloud;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -35,6 +32,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
+import static com.cartoonishvillain.observed.Observed.RANGEBLOCKINGITEMS;
 import static com.cartoonishvillain.observed.components.ComponentStarter.OBSERVELEVEL;
 
 public class ObserverEntity extends Monster implements RangedAttackMob {
@@ -66,7 +64,7 @@ public class ObserverEntity extends Monster implements RangedAttackMob {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null && PanicTicks <= 0;
+        return entity instanceof Player && !(RANGEBLOCKINGITEMS.contains(entity.getItemBySlot(EquipmentSlot.HEAD).getItem()) && entity.distanceTo(this) > Observed.config.observedOptions.observerRange/2f);
     }
 
     public static AttributeSupplier.Builder customAttributes(){

@@ -39,7 +39,7 @@ public class ObserverMovementGoal<T extends ObserverEntity> extends Goal {
             }
 
             if(this.observer.getNavigation().getPath() != null) {
-                if (this.observer.getNavigation().getPath().getDistToTarget() < 2) {
+                if (this.observer.getNavigation().getPath().getDistToTarget() < 4) {
                     this.observer.resetLastLoc();
                 }
             }
