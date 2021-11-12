@@ -41,6 +41,7 @@ public class Observed implements ModInitializer {
 	public static boolean isCalyxLoaded;
 	public static ArrayList<Item> RANGEBLOCKINGITEMS = new ArrayList<>(Arrays.asList(Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.CARVED_PUMPKIN, Items.CREEPER_HEAD, Items.ZOMBIE_HEAD));
 	public static ObservedConfig config;
+	public static String MODID = "observed";
 
 	@Override
 	public void onInitialize() {

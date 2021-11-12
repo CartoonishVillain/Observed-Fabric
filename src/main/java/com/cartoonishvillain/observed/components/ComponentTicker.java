@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +23,11 @@ public class ComponentTicker {
     public static void tickObservation(ServerPlayer player){
         float observe = OBSERVELEVEL.get(player).getObserveLevel();
         if(!player.level.isClientSide && player.tickCount % 20 == 0){
+
+            if(player.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.LENSARMOR)){
+                player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20*12, 0, false, false));
+            }
+
             float levelRemoved;
             if(observe >= 60){levelRemoved = (float) -Observed.config.observedOptions.highValueDrainRate;}
             else if (observe >= 20){levelRemoved = (float) -Observed.config.observedOptions.mediumValueDrainRate;}

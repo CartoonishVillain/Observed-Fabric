@@ -32,7 +32,7 @@ public class SpawnSystem {
             // Make the new spawner entry like I do in forge
             MobSpawnSettings.SpawnerData spawner = new MobSpawnSettings.SpawnerData(Register.OBSERVERENTITY, Observed.config.observedOptions.observerSpawnWeight, 1, 1);
             //Select biome types.
-            if(biome.getBiomeCategory() != Biome.BiomeCategory.NETHER && biome.getBiomeCategory() != Biome.BiomeCategory.THEEND && biome.getBiomeCategory() != Biome.BiomeCategory.OCEAN){
+            if(biome.getBiomeCategory() != Biome.BiomeCategory.NETHER && biome.getBiomeCategory() != Biome.BiomeCategory.THEEND && biome.getBiomeCategory() != Biome.BiomeCategory.OCEAN && biome.toString().contains("minecraft:")){
                 //grab the list of spawn entries.
                 List<MobSpawnSettings.SpawnerData> spawnersList = biome.getMobSettings().spawners.get(MobCategory.MONSTER).unwrap();
                 //move it to a more mutable list

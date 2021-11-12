@@ -1,5 +1,7 @@
 {
   "effect.observed.observedeffect": "Observed",
+  "item.observed.observer_lenses": "Lenses of the Observer",
+  "observed.lensarmor.tooltip": "Allows the wearer to see, unobstructed by darkness.",
   "entity.observed.observer": "Observer",
   "item.observed.observereye": "Eye of the Observer",
   "item.observed.observer_spawn_egg": "Observer Spawn Egg",

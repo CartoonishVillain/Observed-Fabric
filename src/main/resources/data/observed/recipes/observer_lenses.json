@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#/#"
+  ],
+  "key": {
+    "#": {
+      "item": "observed:observereye"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "observed:observer_lenses",
+    "count": 1
+  }
+}
