@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayer.class)
 public class PlayerTickMixin {
 	@Inject(at = @At("TAIL"), method = "tick()V")
-	private void tick(CallbackInfo info) {
+	private void Observedtick(CallbackInfo info) {
 		ComponentTicker.tickObservation((ServerPlayer) (Object) this);
 	}
 }

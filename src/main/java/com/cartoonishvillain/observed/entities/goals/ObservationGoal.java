@@ -18,29 +18,29 @@ public class ObservationGoal extends RangedAttackGoal {
 
     @Override
     public void tick() {
-        ((ObserverAccessor) this).getmob().getLookControl().setLookAt(((ObserverAccessor) this).gettarget(), 30.0F, 30.0F);
+        ((ObserverAccessor) this).Observedgetmob().getLookControl().setLookAt(((ObserverAccessor) this).Observedgettarget(), 30.0F, 30.0F);
 
-        if(((ObserverAccessor) this).getmob().tickCount % 20 == 0) {
-            float targetDistance = ((ObserverAccessor) this).gettarget().distanceTo(((ObserverAccessor) this).getmob());
+        if(((ObserverAccessor) this).Observedgetmob().tickCount % 20 == 0) {
+            float targetDistance = ((ObserverAccessor) this).Observedgettarget().distanceTo(((ObserverAccessor) this).Observedgetmob());
             //move closer to keep observing if target is almost out of range
             double followRange = Observed.config.observedOptions.observerFollowDistance;
-            float range = ((ObserverAccessor)this).getattackRadius();
+            float range = ((ObserverAccessor)this).ObservedgetattackRadius();
 
-            if(RANGEBLOCKINGITEMS.contains(((ObserverAccessor)this).gettarget().getItemBySlot(EquipmentSlot.HEAD).getItem())) {
+            if(RANGEBLOCKINGITEMS.contains(((ObserverAccessor)this).Observedgettarget().getItemBySlot(EquipmentSlot.HEAD).getItem())) {
                 followRange = followRange/2f;
                 range = range/2f;
             }
-            if(range - targetDistance < followRange && !((ObserverAccessor) this).getmob().getNavigation().isInProgress())
-            {((ObserverAccessor) this).getmob().getNavigation().moveTo(((ObserverAccessor) this).gettarget(), 1);}
+            if(range - targetDistance < followRange && !((ObserverAccessor) this).Observedgetmob().getNavigation().isInProgress())
+            {((ObserverAccessor) this).Observedgetmob().getNavigation().moveTo(((ObserverAccessor) this).Observedgettarget(), 1);}
             //otherwise if we are close enough and are still moving, stop moving
-            else if(((ObserverAccessor) this).getattackRadius() - targetDistance > Observed.config.observedOptions.observerFollowDistance && ((ObserverAccessor) this).getmob().getNavigation().isInProgress()){
-                ((ObserverAccessor) this).getmob().getNavigation().stop();
+            else if(((ObserverAccessor) this).ObservedgetattackRadius() - targetDistance > Observed.config.observedOptions.observerFollowDistance && ((ObserverAccessor) this).Observedgetmob().getNavigation().isInProgress()){
+                ((ObserverAccessor) this).Observedgetmob().getNavigation().stop();
             }
         }
 
         if(--newAttackTime == 0){
-            ((ObserverAccessor) this).getrangedAttackMob().performRangedAttack(((ObserverAccessor) this).gettarget(), 1);
-            this.newAttackTime = ((ObserverAccessor) this).getattackIntervalMin();
-        }else if (newAttackTime < 0) this.newAttackTime = ((ObserverAccessor) this).getattackIntervalMin();
+            ((ObserverAccessor) this).ObservedgetrangedAttackMob().performRangedAttack(((ObserverAccessor) this).Observedgettarget(), 1);
+            this.newAttackTime = ((ObserverAccessor) this).ObservedgetattackIntervalMin();
+        }else if (newAttackTime < 0) this.newAttackTime = ((ObserverAccessor) this).ObservedgetattackIntervalMin();
     }
 }

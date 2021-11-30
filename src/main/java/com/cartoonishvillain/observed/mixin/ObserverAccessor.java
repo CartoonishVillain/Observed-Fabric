@@ -15,17 +15,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RangedAttackGoal.class)
 public interface ObserverAccessor {
 	@Accessor("mob")
-	Mob getmob();
+	Mob Observedgetmob();
 
 	@Accessor("target")
-	LivingEntity gettarget();
+	LivingEntity Observedgettarget();
 
 	@Accessor("attackRadius")
-	float getattackRadius();
+	float ObservedgetattackRadius();
 
 	@Accessor("rangedAttackMob")
-	RangedAttackMob getrangedAttackMob();
+	RangedAttackMob ObservedgetrangedAttackMob();
 
 	@Accessor("attackIntervalMin")
-	int getattackIntervalMin();
+	int ObservedgetattackIntervalMin();
 }
