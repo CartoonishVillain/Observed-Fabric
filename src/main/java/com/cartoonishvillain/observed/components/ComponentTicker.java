@@ -11,8 +11,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import java.util.Random;
 
@@ -73,7 +75,7 @@ public class ComponentTicker {
         return !player.isCreative() && !player.isSpectator();
     }
 
-    public static boolean spawnRules(EntityType<? extends Mob> p_21401_, LevelAccessor p_21402_, MobSpawnType p_21403_, BlockPos p_21404_, Random p_21405_){
-        return p_21402_.canSeeSky(p_21404_) && Mob.checkMobSpawnRules(p_21401_, p_21402_, p_21403_, p_21404_, p_21405_);
+    public static boolean spawnRules(EntityType<? extends Monster> p_21401_, LevelAccessor p_21402_, MobSpawnType p_21403_, BlockPos p_21404_, Random p_21405_){
+        return p_21402_.canSeeSky(p_21404_) && Monster.checkMonsterSpawnRules(p_21401_, (ServerLevelAccessor) p_21402_, p_21403_, p_21404_, p_21405_);
     }
 }
